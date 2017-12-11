@@ -1,0 +1,16 @@
+[Unit]
+Description=backend.ai-manager-browser
+After=docker.service etcd.service
+Requires=docker.service etcd.service
+
+
+[Service]
+TimeoutStartSec=0
+
+# build image if theres none
+ExecStartPre=/bin/sh -c "/usr/bin/docker images | grep backend.ai-manager-browser || /usr/bin/docker build -t backend.ai-manager-browser github.com/hephaex/backend.ai-manager-browser.git"
+
+# run or start the container
+ExecStart=/bin/sh -c "/usr/bin/docker ps -a | grep backend.ai-manager-browser && /usr/bin/docker start -a backend.ai-manager-browser || /usr/bin/docker run --name=backend.ai-manager-browser -p 0.0.0.0:8000:8000 backend.ai-manager-browser"
+
+ExecStop=/usr/bin/docker stop backend.ai-manager-browser
