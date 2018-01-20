@@ -1,0 +1,26 @@
+machine:
+  python:
+    version: 3.6.4
+  services:
+    - docker
+
+#dependencies:
+#  override:
+#    - bash bin/install_images.sh
+#    - python src/prepare.py
+
+#compile:
+#  override:
+#    - bash bin/build_images.sh:
+#        parallel: true
+
+test:
+  override:
+    - bash bin/test_base.sh:
+        parallel: true
+
+#deployment:
+#  dockerhub:
+#    branch: master
+#    commands:
+#      - bash bin/push_docker.sh
